@@ -1,0 +1,42 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,100&display=swap" rel="stylesheet"> 
+ 
+ </head>
+   
+ <body>
+    <%if current_user %>
+      <h2> Bienvenue <%= current_user.first_name %> ! </h2>
+    <%else %>
+      <h2> Bienvenue à toi, cher anonyme ! </h2>
+    <% end%>
+
+   <% puts current_user().inspect %>
+   <% puts session[:user_id].inspect %>
+
+   <% puts "BLABLABLA" %>
+  <h1 class="text-center">The Gossip Project</h1>
+    
+      <div class = "d-inline-flex flex-wrap justify-content-around align-self-stretch">
+        <%@all_gossips_array.each do |gossip| %>
+          <div class="card m-3 " style="width: 18rem;">
+            <div class="card-body ">
+              <h5 class="card-title"> <%= gossip.title %></h5>
+              <% author_name = gossip.find_author.first_name %>
+              <h6> de: <%= author_name %> </h6>
+              <h6> A: <%= gossip.user.city.name%> </h6>
+              <p class="card-text"> <%= gossip.content %></p> 
+              <a href="/gossip/<%= gossip.id %>">Voir les détails de ce potin</a>
+           </div>
+          </div>
+        <% end %>
+      </div>
+  </body>
+</html>
